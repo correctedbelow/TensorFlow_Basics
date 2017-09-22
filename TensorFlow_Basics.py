@@ -6,4 +6,6 @@ print('TensorFlow {}'.format(tf.__version__))
 
 
 c1 = tf.constant(3.0)
-print(c1)
+c2 = tf.constant(7.0)
+p = c1 * c2
+print(p)
