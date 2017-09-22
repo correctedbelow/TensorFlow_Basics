@@ -9,8 +9,14 @@ print('TensorFlow {}'.format(tf.__version__))
 
 
 x = tf.placeholder(tf.float32, shape=(None, 2))
-h = tf.layers.dense(x, units=2, activation=tf.sigmoid, use_bias=True)
-y = tf.layers.dense(h, units=1, use_bias=True)
+h = tf.layers.dense(x, units=2, activation=tf.sigmoid, use_bias=True,
+                    kernel_initializer=tf.constant_initializer([[0.1], [0.2]]), # Shape doesn't matter
+                    bias_initializer=tf.constant_initializer([-0.3, 0.4])
+                    )
+y = tf.layers.dense(h, units=1, use_bias=True,
+                    kernel_initializer=tf.constant_initializer([0.5, -0.6]), # See, it doesn't care about the shape
+                    bias_initializer=tf.constant_initializer([0.7])
+                    )
 session = tf.Session()
 
 session.run(tf.global_variables_initializer()) # REMEMBER: Always initialize your variables!
