@@ -7,16 +7,11 @@ import tensorflow as tf
 print('Python {}'.format(sys.version))
 print('TensorFlow {}'.format(tf.__version__))
 
+tf.set_random_seed(195936478)
 
 x = tf.placeholder(tf.float32, shape=(None, 2))
-h = tf.layers.dense(x, units=2, activation=tf.sigmoid, use_bias=True,
-                    kernel_initializer=tf.constant_initializer([[0.1], [0.2]]), # Shape doesn't matter
-                    bias_initializer=tf.constant_initializer([-0.3, 0.4])
-                    )
-y = tf.layers.dense(h, units=1, use_bias=True,
-                    kernel_initializer=tf.constant_initializer([0.5, -0.6]), # See, it doesn't care about the shape
-                    bias_initializer=tf.constant_initializer([0.7])
-                    )
+h = tf.layers.dense(x, units=2, activation=tf.sigmoid, use_bias=True)
+y = tf.layers.dense(h, units=1, use_bias=True)
 answers = tf.placeholder(tf.float32, shape=(None,1))
 mean_squared_error = tf.reduce_mean(tf.square(answers - y))
 optimizer = tf.train.AdamOptimizer(learning_rate=0.01) # Create an optimizer
