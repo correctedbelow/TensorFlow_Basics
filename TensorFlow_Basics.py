@@ -17,6 +17,8 @@ y = tf.layers.dense(h, units=1, use_bias=True,
                     kernel_initializer=tf.constant_initializer([0.5, -0.6]), # See, it doesn't care about the shape
                     bias_initializer=tf.constant_initializer([0.7])
                     )
+answers = tf.placeholder(tf.float32, shape=(None,1))
+mean_squared_error = tf.reduce_mean(tf.square(answers - y))
 session = tf.Session()
 
 session.run(tf.global_variables_initializer()) # REMEMBER: Always initialize your variables!
@@ -36,8 +38,5 @@ xor_outputs = [
 
 prediction = session.run(y, {x: xor_inputs})
 print(prediction)
-error = prediction - xor_outputs
-print('error:', error)
-squared_error = (prediction - xor_outputs) * (prediction - xor_outputs)
-mean_squared_error = sum(squared_error) / len(error)
-print('mean_squared_error:', mean_squared_error)
+
+print('mean_squared_error:', session.run(mean_squared_error, {x: xor_inputs, answers: xor_outputs}))
