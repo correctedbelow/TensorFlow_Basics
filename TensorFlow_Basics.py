@@ -8,4 +8,6 @@ print('TensorFlow {}'.format(tf.__version__))
 c1 = tf.constant(3.0)
 c2 = tf.constant(7.0)
 p = c1 * c2
-print(p)
+
+session = tf.Session()
+print(session.run([c1, c2, p]))
